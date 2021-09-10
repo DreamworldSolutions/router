@@ -1,0 +1,46 @@
+{
+  "name": "@dreamworld/router",
+  "version": "0.0.0-development",
+  "description": "It parses current URL and provides navigation methods.",
+  "main": "router.js",
+  "type": "module",
+  "scripts": {
+    "start": "polymer serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:DreamworldSolutions/router.git"
+  },
+  "keywords": [
+    "lit",
+    "input"
+  ],
+  "author": "Ruchita kheni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DreamworldSolutions/router/issues"
+  },
+  "homepage": "https://github.com/DreamworldSolutions/router#readme",
+  "dependencies": {
+   
+  },
+  "devDependencies": {
+    "semantic-release": "17.0.8"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "resolutions": {},
+  "release": {
+    "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "master",
+      {
+        "name": "feature/*",
+        "prerelease": "${name.replace(/^feature\\//g,\"\")}",
+        "channel": "${name.replace(/^feature\\//g,\"\")}"
+      }
+    ]
+  }
+}
