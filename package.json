@@ -3,7 +3,6 @@
   "version": "0.0.0-development",
   "description": "It parses current URL and provides navigation methods.",
   "main": "router.js",
-  "type": "module",
   "scripts": {
     "start": "polymer serve",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,7 +22,9 @@
   },
   "homepage": "https://github.com/DreamworldSolutions/router#readme",
   "dependencies": {
-   
+    "@dw/pwa-helpers": "^1.5.2",
+    "lodash-es": "^4.17.15",
+    "path-to-regexp": "^6.2.0"
   },
   "devDependencies": {
     "semantic-release": "17.0.8"
