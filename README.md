@@ -9,7 +9,7 @@
 ## Usage pattern
 
 ```js
-import {init, registerFallbackCallback} from '../router.js';
+import { init, registerFallbackCallback } from '../router.js';
 
 // init routing flow
 init(URLs, store);

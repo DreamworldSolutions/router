@@ -1,5 +1,5 @@
 import { ReduxUtils } from '@dw/pwa-helpers/redux-utils.js';
-import { ROUTE_CHANGED } from './router.js';
+import { ROUTE_CHANGED } from './index.js';
 
 const INITIAL_STATE = {
   page: undefined, //Example: { name: "home", params: {} }

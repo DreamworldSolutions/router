@@ -1,8 +1,10 @@
+import queryString from 'query-string-esm';
+import { match } from 'path-to-regexp';
+
+// lodash methods
 import find from 'lodash-es/find';
 import forIn from 'lodash-es/forIn';
 import cloneDeep from 'lodash-es/cloneDeep';
-import { match } from 'path-to-regexp';
-import { parse as parseQuery } from './query-string.js';
 
 /**
  * It parses given URL and creates page object from it.
@@ -11,8 +13,8 @@ import { parse as parseQuery } from './query-string.js';
  * @param {String} url url to be parsed
  * @returns {Object} parsed page object
  */
-export const parsePage = function(pages, url){
-  return parseUrl(pages, url); 
+export const parsePage = function (pages, url) {
+  return parseUrl(pages, url);
 }
 
 /**
@@ -22,10 +24,10 @@ export const parsePage = function(pages, url){
  * @param {String} url url to be parsed
  * @returns {Object} parsed dialog object
  */
-export const parseDialog = function(dialogs, url){
+export const parseDialog = function (dialogs, url) {
   url = new URL(url);
 
-  if(!url.hash){
+  if (!url.hash) {
     return null;
   }
 
@@ -38,7 +40,7 @@ export const parseDialog = function(dialogs, url){
  * @param {String} url 
  * @returns {Object}
  */
-const parseUrl = function(urls, url){
+const parseUrl = function (urls, url) {
   url = new URL(url);
   let params;
 
@@ -47,7 +49,7 @@ const parseUrl = function(urls, url){
     return params ? true : false;
   });
 
-  if(!matchedPattern){
+  if (!matchedPattern) {
     return null;
   }
 
@@ -70,34 +72,50 @@ const parseUrl = function(urls, url){
  * @param {String} query 
  * @returns {Object}
  */
-const isPatternMatched = function(urlPattern, path, query){
+const isPatternMatched = function (urlPattern, path, query) {
 
   // match path
   let parsePathFn = match(urlPattern.pathPattern.replace('#', '/'));
   let parsedPath = parsePathFn(path);
 
-  if(!parsedPath){
+  if (!parsedPath) {
     return;
   }
 
   // parse query params
-  let parsedQuery = parseQuery(query, {
+  let parsedQuery = queryString.parse(query, {
     ignoreQueryPrefix: true,
     arrayFormat: 'comma',
     parseNumbers: true,
     parseBooleans: true
   });
 
+  return formatParams(parsedPath.params, parsedQuery, urlPattern);
+}
+
+const formatParams = function (pathParams, queryParams, config) {
+  queryParams = { ...queryParams };
+  pathParams = { ...pathParams };
+
   // Rename query param keys based on given config
-  forIn(urlPattern.queryParams, (value, key) => {
-    if(parsedQuery[key] && value.name){
-      parsedQuery[value.name] = parsedQuery[key];
-      delete parsedQuery[key];
+  forIn(config.queryParams, (value, key) => {
+    if (queryParams[key] && value.name) {
+      queryParams[value.name] = queryParams[key];
+      delete queryParams[key];
     }
-  })
+  });
+
+  // convert path params into given data types
+  forIn(config.pathParams, (value, key) => {
+    if (!pathParams[key]) {
+      return;
+    }
+
+    pathParams[key] = value(pathParams[key]);
+  });
 
   return {
-    ...parsedPath.params,
-    ...parsedQuery
+    ...pathParams,
+    ...queryParams
   }
 }
