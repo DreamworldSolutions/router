@@ -37,10 +37,6 @@ This array contains all page/dialog Urls of the application. format is as below:
     queryParams: {
       s: {
         name: "size",
-        type: Number
-      },
-      ids: {
-        type: Array
       }
     }
   }],
@@ -55,6 +51,8 @@ This array contains all page/dialog Urls of the application. format is as below:
 
 **To make path parameter optional use `?`.  e.g. `/:companyId/contact/:tab?`.**
 **All the keys Except `pathPattern`, `pathParams`, `queryParams` will be provided as it is in the parsed object.**
+
+**It will parse query params in related type. e.g If any query params value is comma separated then it will give `Array` in parsed object. e.g. URL params is `?action=edit&ids=d64bd8f3ef4463d048963790dcf53193,8b0397b832e9d654e67fa3a5e6935d16&archived=true&count=2`. parsed object of this params is `{action: 'edit', ids: ['d64bd8f3ef4463d048963790dcf53193', '8b0397b832e9d654e67fa3a5e6935d16'], archived: true, count: 2}`**
 
 ## State
 Path: `/router`
@@ -72,7 +70,7 @@ Path: `/router`
 
 - init (urls, store) // Used to intialize routing flow
 - navigate (url, bReplace) // Use to navigate on given URL
-- back // Use to navigate on previous page
+- back() // Use to navigate on previous page
 - registerFallbackCallback (callback) // Use to register fallback function for `back` action. 
 - For page
   - navigatePage (pageName, pageParams, replace = false) // Used to navigate on given page name
