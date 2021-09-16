@@ -49,10 +49,25 @@ This array contains all page/dialog Urls of the application. format is as below:
 }]
 ```
 
-**To make path parameter optional use `?`.  e.g. `/:companyId/contact/:tab?`.**
-**All the keys Except `pathPattern`, `pathParams`, `queryParams` will be provided as it is in the parsed object.**
+**Notes**
 
-**It will parse query params in related type. e.g If any query params value is comma separated then it will give `Array` in parsed object. e.g. URL params is `?action=edit&ids=d64bd8f3ef4463d048963790dcf53193,8b0397b832e9d654e67fa3a5e6935d16&archived=true&count=2`. parsed object of this params is `{action: 'edit', ids: ['d64bd8f3ef4463d048963790dcf53193', '8b0397b832e9d654e67fa3a5e6935d16'], archived: true, count: 2}`**
+- To make path parameter optional use `?`.  e.g. `/:companyId/contact/:tab?`.
+
+- All the keys Except `pathPattern`, `pathParams`, `queryParams` will be provided as it is in the parsed object.
+
+- Provide comma separated value in query params to parse it as `Array`. e.g `ids=1,2,3,4`
+
+- It will parse query params in related data type.
+    - e.g. URL params is `?action=edit&ids=d64bd8f3ef4463d048963790dcf53193,8b0397b832e9d654e67fa3a5e6935d16&archived=true&count=2`.
+      - parsed object of above params is as below:
+        ```json
+        {
+          "action":"edit",
+          "ids":["d64bd8f3ef4463d048963790dcf53193","8b0397b832e9d654e67fa3a5e6935d16"],
+          "archived":true,
+          "count":2
+        }
+        ```
 
 ## State
 Path: `/router`
