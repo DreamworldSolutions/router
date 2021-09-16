@@ -176,6 +176,11 @@ const buildUrl = (urls, name, params) => {
   return computeUrl(pathUrl, queryParams, matchedPattern.queryParams);
 }
 
+/**
+ * Returns path params's object
+ * @param {String} pathPattern 
+ * @returns {Object} parsed pathParams
+ */
 const getPathParams = (pathPattern) => {
   let tokens = parse(pathPattern);
   let pathParams = [];
@@ -189,11 +194,19 @@ const getPathParams = (pathPattern) => {
   return pathParams;
 }
 
+/**
+ * It computes URL using given path url and query params
+ * 
+ * @param {String} pathUrl 
+ * @param {Object} queryParams 
+ * @param {Object} queryParams 
+ */
 const computeUrl = (pathUrl, queryParams, queryConfig) => {
   if (queryParams && !Object.keys(queryParams).length) {
     return pathUrl;
   }
 
+  // Rename query params based on config
   forIn(queryConfig, (value, key) => {
     if (queryParams[value.name]) {
       queryParams[key] = queryParams[value.name];

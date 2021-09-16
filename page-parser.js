@@ -93,6 +93,14 @@ const isPatternMatched = function (urlPattern, path, query) {
   return formatParams(parsedPath.params, parsedQuery, urlPattern);
 }
 
+/**
+ * It converts param's value in given data type and rename params based on given config
+ * 
+ * @param {Object} pathParams 
+ * @param {Object} queryParams 
+ * @param {Object} config 
+ * @returns 
+ */
 const formatParams = function (pathParams, queryParams, config) {
   queryParams = { ...queryParams };
   pathParams = { ...pathParams };
@@ -107,11 +115,9 @@ const formatParams = function (pathParams, queryParams, config) {
 
   // convert path params into given data types
   forIn(config.pathParams, (value, key) => {
-    if (!pathParams[key]) {
-      return;
+    if (pathParams[key]) {
+      pathParams[key] = value(pathParams[key]);
     }
-
-    pathParams[key] = value(pathParams[key]);
   });
 
   return {
