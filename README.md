@@ -9,7 +9,7 @@
 ## Usage pattern
 
 ```js
-import { init, registerFallbackCallback } from '../router.js';
+import { init, registerFallbackCallback } from '@dreamworld/router';
 
 // init routing flow
 init(URLs, store);
@@ -18,7 +18,7 @@ init(URLs, store);
 registerFallbackCallback(callback)
 
 // Exports all the methods provides by the router module
-export * from '../router.js'; 
+export * from '@dreamworld/router'; 
 ```
 
 ### URLs: format of the URLs
