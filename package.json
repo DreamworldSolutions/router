@@ -28,12 +28,20 @@
     "query-string-esm": "^6.13.6"
   },
   "devDependencies": {
+    "@dreamworld/dw-button": "^2.1.2",
+    "@dreamworld/dw-dialog": "^3.3.4",
+    "@material/mwc-tab-bar": "^0.23.0",
+    "redux": "^4.1.1",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "semantic-release": "17.0.8"
   },
   "publishConfig": {
     "access": "public"
   },
-  "resolutions": {},
+  "resolutions": {
+    "@material/mwc-ripple": "^0.20.0"
+  },
   "release": {
     "branches": [
       "+([0-9])?(.{+([0-9]),x}).x",
