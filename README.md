@@ -23,10 +23,10 @@ export * from '@dreamworld/router';
 
 ### URLs: format of the URLs
 
-This array contains all page/dialog Urls of the application. format is as below:
+This Object contains all page/dialog Urls of the application. format is as below:
 
 ```
-[{
+{
   pages: [{
     module: 'contacts',
     name: 'contact-list',
@@ -46,7 +46,7 @@ This array contains all page/dialog Urls of the application. format is as below:
     pathPattern: '#contact-view',
     queryParams: {}
   }]
-}]
+}
 ```
 
 **Notes**

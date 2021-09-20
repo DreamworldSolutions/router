@@ -18,6 +18,11 @@ let fallbackCallback;
  * @param {Boolean} bReplace - if true then change url via replaceState otherwise via pushState
  */
 export const navigate = (url, bReplace) => {
+  if (!url) {
+    console.warn('Router:navigate(): url is not provided');
+    return;
+  }
+
   let currentPageIndex = getCurrentPageIndex();
 
   if (bReplace) {
