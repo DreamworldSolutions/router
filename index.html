@@ -1,5 +1,28 @@
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta http-equiv="refresh" content="0;url=/demo/" />
+    <meta charset="utf-8">
+    <title>Router demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined&display=block" rel="stylesheet">
   </head>
+  <script>
+    let testConfig = {
+      baseDomain: 'test3.hisab.co', 
+      envName: 'test'
+    };
+
+    (window.process = window.process || {}).env = {};
+
+    // Redux assumes `process.env.NODE_ENV` exists in the ES module build.
+    // https://github.com/reactjs/redux/issues/2907
+    window.process.env.NODE_ENV = 'production';
+  </script>
+
+  <body>
+    <router-demo></router-demo>
+    <script type="module" src="./demo/router-demo.js"></script>
+  </body>
+
 </html>

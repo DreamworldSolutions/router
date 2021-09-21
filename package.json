@@ -4,8 +4,7 @@
   "description": "It parses current URL and provides navigation methods.",
   "main": "index.js",
   "scripts": {
-    "start": "polymer serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "web-dev-server"
   },
   "repository": {
     "type": "git",
@@ -31,6 +30,7 @@
     "@dreamworld/dw-button": "^2.1.2",
     "@dreamworld/dw-dialog": "^3.3.4",
     "@material/mwc-tab-bar": "^0.23.0",
+    "@web/dev-server": "^0.1.22",
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
