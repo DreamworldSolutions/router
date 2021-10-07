@@ -77,7 +77,7 @@ class ContactPage extends LitElement {
   }
 
   _openContectViewDialog() {
-    router.navigateDialog("contactViewDialog", { id: "view?153"}, true);
+    router.navigateDialog("contactView", { id: "view?153"}, true);
   }
 }
 

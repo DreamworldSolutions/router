@@ -37,8 +37,8 @@ const URLs = {
   ],
   dialogs: [
     {
-      name: 'contactViewDialog',
-      pathPattern: '#contactViewDialog',
+      name: 'contactView',
+      pathPattern: '#contact-view-dialog',
     }
   ]
 }
@@ -105,10 +105,10 @@ class RouterDemo extends connect(store)(LitElement) {
   get _getDialogTemplate() {
     console.log(router.currentDialog);
     return html`
-      <dw-dialog  ?opened=${this._dialog === "contactViewDialog" ? true : false} noCancelOnEscKey noCancelOnOutsideClick >
+      <dw-dialog  ?opened=${this._dialog === "contactView" ? true : false} noCancelOnEscKey noCancelOnOutsideClick >
         <span slot="header">Contact view dialog</span>
         <div>
-          This dilaog open when url is set to "#contactViewDialog"
+          This dilaog open when url is set to "#contact-view-dialog"
         </div>
         <span slot="footer">
           <dw-button label="Cancel" @click="${router.back}" ></dw-button>
@@ -142,8 +142,8 @@ class RouterDemo extends connect(store)(LitElement) {
   }
 
   stateChanged(state) {
-    this._page = router.currentPage ? router.currentPage.name : "";
-    this._dialog = router.currentDialog ? router.currentDialog.name : "";
+    this._page = router.currentPage?.name||"";
+    this._dialog = router.currentDialog?.name||"";
   }
 }
 
