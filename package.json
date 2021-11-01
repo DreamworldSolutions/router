@@ -2,11 +2,9 @@
   "name": "@dreamworld/router",
   "version": "0.0.0-development",
   "description": "It parses current URL and provides navigation methods.",
-  "main": "router.js",
-  "type": "module",
+  "main": "index.js",
   "scripts": {
-    "start": "polymer serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "web-dev-server"
   },
   "repository": {
     "type": "git",
@@ -23,15 +21,28 @@
   },
   "homepage": "https://github.com/DreamworldSolutions/router#readme",
   "dependencies": {
-   
+    "@dw/pwa-helpers": "^1.5.2",
+    "lodash-es": "^4.17.15",
+    "path-to-regexp": "^6.2.0",
+    "query-string-esm": "^6.13.6"
   },
   "devDependencies": {
+    "@dreamworld/dw-button": "^2.1.2",
+    "@dreamworld/dw-dialog": "^3.3.4",
+    "@dreamworld/dw-icon-button": "^2.1.3",
+    "@material/mwc-tab-bar": "^0.23.0",
+    "@web/dev-server": "^0.1.22",
+    "redux": "^4.1.1",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "semantic-release": "17.0.8"
   },
   "publishConfig": {
     "access": "public"
   },
-  "resolutions": {},
+  "resolutions": {
+    "@material/mwc-ripple": "^0.20.0"
+  },
   "release": {
     "branches": [
       "+([0-9])?(.{+([0-9]),x}).x",
