@@ -1,4 +1,4 @@
-import { ReduxUtils } from '@dw/pwa-helpers/redux-utils.js';
+import { ReduxUtils } from '@dreamworld/pwa-helpers/redux-utils.js';
 import { ROUTE_CHANGED } from './index.js';
 
 const INITIAL_STATE = {
