@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css } from '@dreamworld/pwa-helpers/lit.js';
 import * as router from '../index.js';
 
 import { store } from './redux/store.js';
@@ -6,7 +6,7 @@ import { connect } from 'pwa-helpers/connect-mixin.js';
 
 import "@material/mwc-tab-bar";
 import "@dreamworld/dw-button";
-import "@dreamworld/dw-dialog";
+// import "@dreamworld/dw-dialog";
 import "./bank-page.js";
 import "./contact-page.js";
 import "./contact-inner-page.js";
@@ -105,7 +105,7 @@ class RouterDemo extends connect(store)(LitElement) {
   get _getDialogTemplate() {
     console.log(router.currentDialog);
     return html`
-      <dw-dialog  ?opened=${this._dialog === "contactView" ? true : false} noCancelOnEscKey noCancelOnOutsideClick >
+      <!-- <dw-dialog  ?opened=${this._dialog === "contactView" ? true : false} noCancelOnEscKey noCancelOnOutsideClick >
         <span slot="header">Contact view dialog</span>
         <div>
           This dilaog open when url is set to "#contact-view-dialog"
@@ -113,7 +113,7 @@ class RouterDemo extends connect(store)(LitElement) {
         <span slot="footer">
           <dw-button label="Cancel" @click="${router.back}" ></dw-button>
         </span>
-      </dw-dialog>
+      </dw-dialog> -->
     `;
   }
 
