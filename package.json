@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "description": "It parses current URL and provides navigation methods.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "web-dev-server"
   },
