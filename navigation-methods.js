@@ -178,7 +178,7 @@ const buildUrl = (urls, name, params) => {
   let pathParams = getPathParams(matchedPattern.pathPattern);
   let queryParams = omit(params, pathParams);
 
-  return computeUrl(pathUrl, queryParams, matchedPattern.queryParams);
+  return computeUrl(pathUrl, queryParams, matchedPattern.queryParams, matchedPattern.arrayFormat);
 }
 
 /**
@@ -206,7 +206,7 @@ const getPathParams = (pathPattern) => {
  * @param {Object} queryParams 
  * @param {Object} queryParams 
  */
-const computeUrl = (pathUrl, queryParams, queryConfig) => {
+const computeUrl = (pathUrl, queryParams, queryConfig, arrayFormat) => {
   if (queryParams && !Object.keys(queryParams).length) {
     return pathUrl;
   }
@@ -214,12 +214,13 @@ const computeUrl = (pathUrl, queryParams, queryConfig) => {
   // Rename query params based on config
   forIn(queryConfig, (value, key) => {
     if (queryParams[value.name]) {
-      queryParams[key] = queryParams[value.name];
+      let val = queryParams[value.name];
       delete queryParams[value.name];
+      queryParams[key] = val;
     }
   });
 
-  let query = queryString.stringify(queryParams);
+  let query = queryString.stringify(queryParams, {arrayFormat: arrayFormat || 'none'});
 
   return `${pathUrl}?${query}`;
 }
