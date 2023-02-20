@@ -19,6 +19,10 @@ let store;
  * @param {String} url Current URL. Its used only for SSR.
  */
 export const init = (aUrls, oStore, url) => {
+  if(isServer && !url) {
+    return;
+  }
+
   store = oStore;
   urls = aUrls;
   addReducer();
