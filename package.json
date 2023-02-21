@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/DreamworldSolutions/router#readme",
   "dependencies": {
-    "@dreamworld/pwa-helpers": "^1.14.0",
+    "@dreamworld/pwa-helpers": "^1.16.0",
     "lodash-es": "^4.17.15",
     "path-to-regexp": "^6.2.0",
     "query-string-esm": "^6.13.6"

@@ -1,5 +1,6 @@
 import { parsePage, parseDialog } from './page-parser.js';
 import reducer from './reducer.js';
+import { isServer } from '@dreamworld/pwa-helpers/lit.js'
 
 export * from './navigation-methods.js';
 export const ROUTE_CHANGED = 'ROUTER_ROUTE_CHANGED';
@@ -15,18 +16,26 @@ let store;
  * 
  * @param {Array} aUrls application URLs. format: [{module: $moduleName, subPage: $pageName, pattern: '/:companyId/modulName/subPageName\\?date=:date}]
  * @param {Object} oStore redux store object
+ * @param {String} url Current URL. Its used only for SSR.
  */
-export const init = (aUrls, oStore) => {
+export const init = (aUrls, oStore, url) => {
+  if(isServer && !url) {
+    return;
+  }
+
   store = oStore;
   urls = aUrls;
   addReducer();
 
-  // Bind events to handler URL changes
-  window.addEventListener('location-changed', handleRoute);
-  window.addEventListener('popstate', handleRoute);
-  document.body.addEventListener('click', clickHandler);
+  if(!isServer){
+    // Bind events to handler URL changes
+    window.addEventListener('location-changed', handleRoute);
+    window.addEventListener('popstate', handleRoute);
+    document.body.addEventListener('click', clickHandler);
+  }
+  
 
-  handleRoute();
+  handleRoute(url);
 }
 
 /**
@@ -34,8 +43,8 @@ export const init = (aUrls, oStore) => {
  * It's parses current URL and stores page/dialog object in the redux store
  * @param {String} url - current url
  */
-const handleRoute = () => {
-  let url = window.location.href;
+const handleRoute = (url) => {
+  url = isServer ? url : window.location.href;
   currentPage = parsePage(urls.pages, url);
   currentDialog = parseDialog(urls.dialogs, url);
 
