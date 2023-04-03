@@ -1,6 +1,8 @@
 import queryString from 'query-string-esm';
 import { match } from 'path-to-regexp';
 
+import { defaultArrayFormatConfig } from "./global-config.js";
+
 // lodash methods
 import find from 'lodash-es/find';
 import forIn from 'lodash-es/forIn';
@@ -82,15 +84,22 @@ const isPatternMatched = function (urlPattern, path, query) {
     return;
   }
 
+  let config = defaultArrayFormatConfig();
+
   // parse query params
   let parsedQuery = queryString.parse(query, {
     ignoreQueryPrefix: true,
-    arrayFormat: 'comma',
+    arrayFormat: config.arrayFormat,
+    arrayFormatSeparator: config.arrayFormatSeparator,
     parseNumbers: true,
     parseBooleans: true
   });
 
   return formatParams(parsedPath.params, parsedQuery, urlPattern);
+}
+
+const trimStr = (str) => {
+  return str.trim ? str.trim() : str;
 }
 
 /**
@@ -104,6 +113,30 @@ const isPatternMatched = function (urlPattern, path, query) {
 const formatParams = function (pathParams, queryParams, config) {
   queryParams = { ...queryParams };
   pathParams = { ...pathParams };
+
+  //Convert queryParam's data type based on given config
+  forIn(queryParams, (value, key) => {
+    let valueFn = config.queryParams[key]?.type || String;
+
+    if (config.queryParams[key]?.array) {
+      if (!Array.isArray(value)) {
+        queryParams[key] = Array(1).fill(value);
+      }
+
+      try {
+        queryParams[key] = queryParams[key].map((param) => trimStr(valueFn(param)));
+      } catch(e) {
+        console.error(`router: formatParams: parsing failed. queryParam=${key}, value=`, queryParams[key]);
+      }
+      return;
+    }
+
+    try {
+      queryParams[key] = trimStr(valueFn(queryParams[key]));
+    } catch(e) {
+      console.error(`router: formatParams: parsing failed. queryParam=${key}, value=`, queryParams[key]);
+    }
+  });
 
   // Rename query param keys based on given config
   forIn(config.queryParams, (value, key) => {

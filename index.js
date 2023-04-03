@@ -3,6 +3,7 @@ import reducer from './reducer.js';
 import { isServer } from '@dreamworld/pwa-helpers/lit.js'
 
 export * from './navigation-methods.js';
+export * from './global-config.js';
 export const ROUTE_CHANGED = 'ROUTER_ROUTE_CHANGED';
 
 export let urls = [];
