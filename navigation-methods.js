@@ -1,13 +1,13 @@
-import { urls, currentDialog, currentPage } from './index';
+import { urls, currentDialog, currentPage } from './index.js';
 import { compile, parse } from 'path-to-regexp';
 import queryString from 'query-string-esm';
 
 // lodash methods
-import forEach from 'lodash-es/forEach';
-import omit from 'lodash-es/omit';
-import forIn from 'lodash-es/forIn';
-import find from 'lodash-es/find';
-import cloneDeep from 'lodash-es/cloneDeep';
+import forEach from 'lodash-es/forEach.js';
+import omit from 'lodash-es/omit.js';
+import forIn from 'lodash-es/forIn.js';
+import find from 'lodash-es/find.js';
+import cloneDeep from 'lodash-es/cloneDeep.js';
 
 let fallbackCallback;
 
