@@ -2,9 +2,9 @@ import queryString from 'query-string-esm';
 import { match } from 'path-to-regexp';
 
 // lodash methods
-import find from 'lodash-es/find';
-import forIn from 'lodash-es/forIn';
-import cloneDeep from 'lodash-es/cloneDeep';
+import find from 'lodash-es/find.js';
+import forIn from 'lodash-es/forIn.js';
+import cloneDeep from 'lodash-es/cloneDeep.js';
 
 /**
  * It parses given URL and creates page object from it.
