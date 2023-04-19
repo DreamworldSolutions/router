@@ -1,5 +1,8 @@
-var defaultFormat = "comma";
-var defaultFormatSeparator = ",";
+const DEF_ARRAY_FORMAT = "comma";
+const DEF_ARRAY_FORMAT_SEPARATOR = ",";
+
+var arrayFormat;
+var arrayFormatSeparator;
 
 /**
  * It's used to set default global array format config
@@ -7,8 +10,8 @@ var defaultFormatSeparator = ",";
  * @param {String} separator 
  */
 export const setDefaultArrayFormat = (format, separator) => {
-  defaultFormat = format;
-  defaultFormatSeparator = separator;
+  arrayFormat = format;
+  arrayFormatSeparator = separator;
 };
 
 /**
@@ -16,7 +19,7 @@ export const setDefaultArrayFormat = (format, separator) => {
  */
 export const defaultArrayFormatConfig = () => {
   return {
-    arrayFormat: defaultFormat,
-    arrayFormatSeparator: defaultFormatSeparator
+    arrayFormat: arrayFormat || DEF_ARRAY_FORMAT,
+    arrayFormatSeparator: arrayFormatSeparator || DEF_ARRAY_FORMAT_SEPARATOR
   }
 };
