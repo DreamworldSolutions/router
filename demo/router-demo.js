@@ -11,6 +11,8 @@ import "./bank-page.js";
 import "./contact-page.js";
 import "./contact-inner-page.js";
 
+window.router = router;
+
 const URLs = {
   pages: [
     {
@@ -18,6 +20,21 @@ const URLs = {
       pathPattern: '/:companyId/contact',
       pathParams: {
         companyId: Number
+      },
+      queryParams: {
+        'doc-ids': {
+          name: "docIds",
+          type: Number,
+          array: true
+        },
+        'mobile': {
+          name: "mobileNo",
+          type: Number
+        },
+        'email': {
+          type: String,
+          array: true
+        }
       }
     },
     {
@@ -25,7 +42,22 @@ const URLs = {
       pathPattern: '/:companyId/bank',
       pathParams: {
         companyId: Number
-      }
+      },
+      queryParams: {
+        'doc-ids': {
+          name: "docIds",
+          type: Number,
+          array: true
+        },
+        'mobile': {
+          name: "mobileNo",
+          type: Number
+        },
+        'email': {
+          type: String,
+          array: true
+        }
+      },
     },
     {
       name: 'contactInnerPage',

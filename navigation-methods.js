@@ -2,6 +2,8 @@ import { urls, currentDialog, currentPage } from './index.js';
 import { compile, parse } from 'path-to-regexp';
 import queryString from 'query-string-esm';
 
+import { defaultArrayFormatConfig } from "./global-config.js";
+
 // lodash methods
 import forEach from 'lodash-es/forEach.js';
 import omit from 'lodash-es/omit.js';
@@ -154,6 +156,20 @@ export const buildDialogURL = (dialogName, dialogParams) => {
 /**------------------------- END: Dialog navigation methods ----------------------------*/
 
 /**
+ * If arrayFormat configured for route then it returns it otherwise returns global default config.
+ * @param {Object} routeConfig 
+ * @returns {Object}
+ */
+const getArrayFormatConfigs = (routeConfig) => {
+  let defaultConfig = defaultArrayFormatConfig();
+
+  return {
+    arrayFormat: routeConfig?.arrayFormat || defaultConfig?.arrayFormat,
+    arrayFormatSeparator: routeConfig?.arrayFormatSeparator || defaultConfig?.arrayFormatSeparator
+  };
+};
+
+/**
  * Builds URL of the given page/dialog name
  * 
  * @param {Array} urls page/dialogs URLs
@@ -178,7 +194,7 @@ const buildUrl = (urls, name, params) => {
   let pathParams = getPathParams(matchedPattern.pathPattern);
   let queryParams = omit(params, pathParams);
 
-  return computeUrl(pathUrl, queryParams, matchedPattern.queryParams, matchedPattern.arrayFormat);
+  return computeUrl(pathUrl, queryParams, matchedPattern);
 }
 
 /**
@@ -204,9 +220,11 @@ const getPathParams = (pathPattern) => {
  * 
  * @param {String} pathUrl 
  * @param {Object} queryParams 
- * @param {Object} queryParams 
+ * @param {Object} routeConfig
  */
-const computeUrl = (pathUrl, queryParams, queryConfig, arrayFormat) => {
+const computeUrl = (pathUrl, queryParams, routeConfig) => {
+  let queryConfig = routeConfig.queryParams;
+
   if (queryParams && !Object.keys(queryParams).length) {
     return pathUrl;
   }
@@ -220,9 +238,19 @@ const computeUrl = (pathUrl, queryParams, queryConfig, arrayFormat) => {
     }
   });
 
-  let query = queryString.stringify(queryParams, {arrayFormat: arrayFormat || 'none'});
+  let config = getArrayFormatConfigs(routeConfig);
 
-  return `${pathUrl}?${query}`;
+  let query = queryString.stringify(queryParams, {
+    arrayFormat: config?.arrayFormat,
+    arrayFormatSeperator: config?.arrayFormatSeperator
+  });
+
+  if(query) {
+   return `${pathUrl}?${query}`; 
+  }
+
+  //Remove `?` if there are no any query params
+  return pathUrl;
 }
 
 /**
