@@ -7,6 +7,7 @@ import { defaultArrayFormatConfig } from "./global-config.js";
 import find from 'lodash-es/find.js';
 import forIn from 'lodash-es/forIn.js';
 import cloneDeep from 'lodash-es/cloneDeep.js';
+import get from 'lodash-es/get.js';
 
 /**
  * It parses given URL and creates page object from it.
@@ -116,9 +117,10 @@ const formatParams = function (pathParams, queryParams, config) {
 
   //Convert queryParam's data type based on given config
   forIn(queryParams, (value, key) => {
-    let valueFn = config.queryParams[key]?.type || String;
+    const valueFn = get(config, `queryParams.${key}.type`, String);
+    const isArray = get(config, `queryParams.${key}.array`);
 
-    if (config.queryParams[key]?.array) {
+    if (isArray) {
       if (!Array.isArray(value)) {
         queryParams[key] = Array(1).fill(value);
       }
