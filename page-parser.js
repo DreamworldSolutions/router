@@ -142,7 +142,7 @@ const formatParams = function (pathParams, queryParams, config) {
 
   // Rename query param keys based on given config
   forIn(config.queryParams, (value, key) => {
-    if (queryParams[key] !== undefined && value.name) {
+    if (queryParams[key] !== undefined && value.name && value.name !== key) {
       queryParams[value.name] = queryParams[key];
       delete queryParams[key];
     }
