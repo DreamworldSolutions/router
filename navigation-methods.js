@@ -19,13 +19,13 @@ let fallbackCallback;
  * @param {String} url 
  * @param {Boolean} bReplace - if true then change url via replaceState otherwise via pushState
  */
-export const navigate = (url, bReplace) => {
+export const navigate = (url, bReplace, resetIndex = false) => {
   if (!url) {
     console.warn('Router:navigate(): url is not provided');
     return;
   }
 
-  let currentPageIndex = getCurrentPageIndex();
+  let currentPageIndex = resetIndex ? 0 : getCurrentPageIndex();
 
   if (bReplace) {
     window.history.replaceState({ index: currentPageIndex }, '', url);
@@ -72,9 +72,9 @@ export const back = () => {
  * @param {Object} pageParams key/value pair of the params. e.g. {companyId: 'd64bd8f3ef4463d048963790dcf53193'}
  * @param {Boolean} replace if true then change url via replaceState otherwise via pushState
  */
-export const navigatePage = (pageName, pageParams, replace = false) => {
+export const navigatePage = (pageName, pageParams, replace = false, resetIndex = false) => {
   let url = buildUrl(urls.pages, pageName, pageParams);
-  navigate(url, replace);
+  navigate(url, replace, resetIndex);
 }
 
 /**
