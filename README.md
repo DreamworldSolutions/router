@@ -106,3 +106,10 @@ Path: `/router`
   - `navigateDialog (dialogName, dialogParams, replace = false)` // Used to navigate on the given dialog name
   - `setDialogParams (dialogParams, replace)` // Used to set params in the current hash
   - `buildDialogURL (dialogName, dialogParams)` // Used to get dialog URL
+
+### Saga Methods
+
+- `waitWhile(routeCriteria)`: Waits until the current route matches the given criteria.
+  - `routeCriteria`: `Object` | `Function` - The criteria to match against the current route.
+- `waitUntil(routeCriteria)`: Waits until the current route does NOT match the given criteria.
+  - `routeCriteria`: `Object` | `Function` - The criteria to match against the current route.
